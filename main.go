@@ -87,7 +87,12 @@ func main() {
 	router.GET("/logout", logoutHandler)
 	router.GET("/news", authMiddleware(), newsHandler)
 
-	router.Run(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	
+	router.Run(":" + port)
 }
 
 func homeHandler(c *gin.Context) {
